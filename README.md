@@ -1,5 +1,5 @@
 # PupPulse
-![PupPulse Logo](assets/PupPulse.png)
+<img src="assets/PupPulse.png" alt="PupPulse Logo" width="300"/>
 Real-time Emotion & Action Monitoring for Dogs
 
 ---
