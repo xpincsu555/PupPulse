@@ -12,6 +12,7 @@ Real-time Emotion & Action Monitoring for Dogs
 4. [Installation](#installation)
 5. [Usage](#usage)
 6. [Project Structure](#project-structure)
+7. [License](#License)
 
 ---
 
