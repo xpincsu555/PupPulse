@@ -1,4 +1,5 @@
 # PupPulse
+![PupPulse Logo](assets/PupPulse.png)
 Real-time Emotion & Action Monitoring for Dogs
 
 ---
