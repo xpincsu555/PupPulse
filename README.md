@@ -55,25 +55,25 @@ PupPulse is a real-time multimodal system that monitors the actions (sit, lie do
 ---
 
 ## Installation
-
-1. Clone the repository
+ 
+**1. Clone the repository**
 
    ```bash
    git clone https://github.com/username/pup-pulse.git
    cd pup-pulse
    ```
-2. Create conda environment
+**2. Create conda environment**
 
    ```bash
    conda create -n pup-pulse python=3.10 -y
    conda activate pup-pulse
    ```
-3. Install dependencies
+**3. Install dependencies**
 
    ```bash
    pip install -r requirements.txt
    ```
-4. Prepare data
+**4. Prepare data**
 
    * download data to `data/raw/`
    * run `scripts/download_sample.sh`
