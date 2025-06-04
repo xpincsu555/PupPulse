@@ -62,7 +62,7 @@ PupPulse is a real-time multimodal system that monitors the actions (sit, lie do
    git clone https://github.com/username/pup-pulse.git
    cd pup-pulse
    ```
-**2. Create conda environment**
+**2. Create & Activate Conda Environment**
 
    ```bash
    conda create -n pup-pulse python=3.10 -y
