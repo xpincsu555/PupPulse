@@ -1,0 +1,15 @@
+# ignore raw images
+data/raw/images/
+
+# ignore all zip files
+*.zip
+
+# Python temporary files
+__pycache__/
+*.pyc
+
+# VSCode config
+.vscode/
+
+# Conda environment
+env/
