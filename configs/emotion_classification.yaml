@@ -1,0 +1,39 @@
+# PupPulse Dog Emotion Classification Configuration
+
+model:
+  name: "resnet18"              # Model architecture (resnet18, resnet34, resnet50, custom_cnn)
+  pretrained: true              # Use ImageNet pretrained weights
+  num_classes: 4                # angry, happy, relaxed, sad
+  dropout_rate: 0.5             # Dropout for regularization
+
+training:
+  batch_size: 32                # Batch size for training
+  epochs: 20                    # Maximum training epochs
+  learning_rate: 0.001          # Initial learning rate
+  weight_decay: 0.0001          # L2 regularization
+  patience: 5                   # Early stopping patience
+  min_delta: 0.001              # Minimum improvement for early stopping
+
+data:
+  input_size: 224               # Input image size (224x224)
+  train_split: 0.8              # Train/validation split ratio
+  random_seed: 42               # For reproducible splits
+  num_workers: 2                # DataLoader workers (adjust for M1 Mac)
+  
+  # Data augmentation parameters
+  augmentation:
+    rotation_degrees: 15        # Random rotation range
+    horizontal_flip_prob: 0.5   # Probability of horizontal flip
+    brightness: 0.2             # Brightness adjustment range
+    contrast: 0.2               # Contrast adjustment range
+    normalize_mean: [0.485, 0.456, 0.406]  # ImageNet normalization
+    normalize_std: [0.229, 0.224, 0.225]   # ImageNet normalization
+
+paths:
+  data_root: "data/raw/images"  # Path to extracted images
+  output_dir: "outputs"         # Directory for model checkpoints and logs
+  log_file: "training.log"      # Training log filename
+
+device:
+  use_mps: true                 # Use Metal Performance Shaders on M1 Mac
+  fallback_to_cpu: true         # Fallback to CPU if MPS unavailable

@@ -59,64 +59,111 @@ PupPulse is a real-time multimodal system that monitors the actions (sit, lie do
 **1. Clone the repository**
 
    ```bash
-   git clone https://github.com/username/pup-pulse.git
-   cd pup-pulse
+   git clone https://github.com/xpincsu555/PupPulse.git
+   cd PupPulse
    ```
-**2. Create & Activate Conda Environment**
+
+**2. Install Kaggle CLI & configure API token**
+
+   ```bash
+   pip install kaggle
+   mkdir -p ~/.kaggle
+   mv /path/to/kaggle.json ~/.kaggle/    # 把下载的 kaggle.json 放到这里
+   chmod 600 ~/.kaggle/kaggle.json
+   ```
+
+**3. Create & Activate Conda Environment**
 
    ```bash
    conda create -n pup-pulse python=3.10 -y
    conda activate pup-pulse
    ```
-**3. Install dependencies**
+**4. Install dependencies**
 
    ```bash
    pip install -r requirements.txt
    ```
-**4. Prepare data**
+**5. Download & Prepare data**
 
-   * download data to `data/raw/`
-   * run `scripts/download_sample.sh`
+  ```bash
+   # 1) Download into data/raw
+   kaggle datasets download -d devzohaib/dog-emotions-prediction \
+      -p data/raw
+
+   # 2) Unzip into data/raw/images
+   mkdir -p data/raw/images
+   unzip -o data/raw/dog-emotions-prediction.zip -d data/raw/images
+
+   # 3) Verify the four folders exist
+   ls data/raw/images
+   # → angry  happy  relaxed  sad
+   ```
+
 
 ---
 
 ## Usage
 
-1. **Train base model**
+1. **Train the emotion‐classification model**
 
    ```bash
-   python src/models/train_base.py --config configs/base_action.yaml
+   python src/models/train.py \
+     --config configs/emotion_classification.yaml
    ```
-2. **Auto-label your dog**
+2. **Evaluate on the validation set**
 
    ```bash
-   python src/utils/auto_label.py --input data/raw/mydog_videos/ --output data/labels/
+  python src/models/evaluate.py \
+  --weights outputs/best_emotion_model.pth
    ```
-3. **Fine-tune personalized model**
+3. **Run inference on a single image**
 
    ```bash
-   python src/models/train_finetune.py --config configs/finetune.yaml
+   python src/inference/predict.py \
+  --image data/raw/images/happy/sample.jpg
    ```
+
+4. **Auto‐label your own videos**  
+   ```bash
+   python src/utils/auto_label.py \
+     --input data/raw/mydog_videos/ \
+     --output data/labels/
+   ``` 
+
+5.**Fine-tune on personalized labels**
+   ```bash
+   python src/models/train_finetune.py \
+  --config configs/finetune.yaml
+  ```
+
 
 ---
 
 ## Project Structure
 
 ```text
-pup-pulse/
+PupPulse/
 ├── assets/             # Images and logos
+├── configs/
 ├── data/               # Raw and annotated data
+│   └── raw/
+│       └── images/
+│           ├── angry/
+│           ├── happy/
+│           ├── relaxed/
+│           └── sad/
 ├── src/                # Source code
 │   ├── models/         # Model definitions & training scripts
 │   ├── utils/          # Data loading & labeling scripts
-│   └── api/            # FastAPI service code
+│   └── inference/
+├── scripts/
+│   └── unzip_data.sh
 ├── requirements.txt    # Python dependencies
 ├── environment.yml     # Conda environment file
 ├── README.md           # Project documentation
+├── LICENSE
 └── .gitignore
 ```
-
-
 
 ## License
 
